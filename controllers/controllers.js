@@ -43,4 +43,15 @@ export function abreaddusuario(req,res){
     res.render('addusuario.ejs')
 }
 
+import Usuario from '../models/Usuario.js';
+
+export function addusuario(req,res){
+    let usuario = new Usuario({
+        nome: req.body.nome,
+        email: req.body.email,
+        senha: req.body.senha,
+        foto: req.body.foto
+    })
+    usuario.save();
+}
 
