@@ -53,5 +53,12 @@ export function addusuario(req,res){
         foto: req.body.foto
     })
     usuario.save();
+    res.redirect('/addusuario')
+}
+
+export async function listarusuarios(req,res){
+    const usuarios = await Usuario.find({})
+    //res.json(usuarios)
+    res.render('listarusuarios.ejs',{"Usuarios":usuarios})
 }
 

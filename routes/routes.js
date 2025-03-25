@@ -9,7 +9,8 @@ import {
             abreIndex,
             abreTabuada,
             abreaddusuario,
-            addusuario
+            addusuario,
+            listarusuarios
         } from '../controllers/controllers.js';
 
 router.get('/formulario',abreIndex)
@@ -21,5 +22,7 @@ router.post('/tabuada',tabuada)
 
 router.get('/addusuario', abreaddusuario)
 router.post('/addusuario',addusuario)
+
+router.get('/lstusuarios',listarusuarios)
 
 export default router
