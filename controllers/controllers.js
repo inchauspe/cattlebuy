@@ -1,3 +1,5 @@
+import Usuario from '../models/Usuario.js';
+
 export function abreIndex(req,res){
     res.render('index.ejs')
 }
@@ -43,8 +45,6 @@ export function abreaddusuario(req,res){
     res.render('addusuario.ejs')
 }
 
-import Usuario from '../models/Usuario.js';
-
 export function addusuario(req,res){
     let usuario = new Usuario({
         nome: req.body.nome,
@@ -62,3 +62,28 @@ export async function listarusuarios(req,res){
     res.render('listarusuarios.ejs',{"Usuarios":usuarios})
 }
 
+export async function filtrarusuarios(req,res){
+    const filtro = req.body.filtro
+    const usuarios = await Usuario.find({nome: new RegExp(filtro,'g')})
+    res.render('listarusuarios.ejs',{"Usuarios":usuarios})
+}
+
+export async function delusuario(req,res){
+    await Usuario.findByIdAndDelete(req.params.id)
+    res.redirect('/lstusuarios')
+}
+
+export async function abreedtusuario(req,res){
+    const usuario = await Usuario.findById(req.params.id)
+    res.render('edtusuario.ejs',{"Usuario":usuario})
+}
+
+export async function edtusuario(req,res){
+    const usuario = await Usuario.findById(req.params.id)
+    usuario.nome = req.body.nome
+    usuario.email = req.body.email
+    usuario.senha = req.body.senha
+    usuario.foto = req.body.foto
+    await usuario.save()
+    res.redirect('/lstusuarios')
+}

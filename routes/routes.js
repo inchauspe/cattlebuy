@@ -10,7 +10,11 @@ import {
             abreTabuada,
             abreaddusuario,
             addusuario,
-            listarusuarios
+            listarusuarios,
+            filtrarusuarios,
+            delusuario,
+            abreedtusuario,
+            edtusuario
         } from '../controllers/controllers.js';
 
 router.get('/formulario',abreIndex)
@@ -24,5 +28,11 @@ router.get('/addusuario', abreaddusuario)
 router.post('/addusuario',addusuario)
 
 router.get('/lstusuarios',listarusuarios)
+router.post('/lstusuarios',filtrarusuarios)
+
+router.get("/edtusuario/:id",abreedtusuario)
+router.post("/edtusuario/:id",edtusuario)
+
+router.get("/delusuario/:id",delusuario)
 
 export default router
