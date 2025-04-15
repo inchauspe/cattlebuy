@@ -14,7 +14,14 @@ import {
             filtrarusuarios,
             delusuario,
             abreedtusuario,
-            edtusuario
+            edtusuario,
+            abreaddcomentario,
+            addcomentario,
+            listarcomentarios,
+            filtrarcomentarios,
+            abreedtcomentario,
+            edtcomentario,
+            delcomentario
         } from '../controllers/controllers.js';
 
 router.get('/formulario',abreIndex)
@@ -34,5 +41,17 @@ router.get("/edtusuario/:id",abreedtusuario)
 router.post("/edtusuario/:id",edtusuario)
 
 router.get("/delusuario/:id",delusuario)
+
+
+router.get('/addcomentario', abreaddcomentario)
+router.post('/addcomentario',addcomentario)
+
+router.get('/lstcomentarios',listarcomentarios)
+router.post('/lstcomentarios',filtrarcomentarios)
+
+router.get("/edtcomentario/:id",abreedtcomentario)
+router.post("/edtcomentario/:id",edtcomentario)
+
+router.get("/delcomentario/:id",delcomentario)
 
 export default router

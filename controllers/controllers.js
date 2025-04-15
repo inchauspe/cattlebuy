@@ -87,3 +87,52 @@ export async function edtusuario(req,res){
     await usuario.save()
     res.redirect('/lstusuarios')
 }
+
+import Comentario from '../models/Comentario.js';
+
+export function abreaddcomentario(req,res){
+    res.render('addcomentario.ejs')
+}
+
+export function addcomentario(req,res){
+    let comentario = new Comentario({
+        nome: req.body.nome,
+        email: req.body.email,
+        turma: req.body.turma,
+        comentario: req.body.comentario
+    })
+    comentario.save();
+    res.redirect('/addcomentario')
+}
+
+export async function listarcomentarios(req,res){
+    const comentarios = await Comentario.find({})
+    //res.json(usuarios)
+    res.render('listarcomentarios.ejs',{"Comentarios":comentarios})
+}
+
+export async function filtrarcomentarios(req,res){
+    const filtro = req.body.filtro
+    const comentarios = await Comentario.find({nome: new RegExp(filtro,'g')})
+    res.render('listarcomentarios.ejs',{"Comentarios":comentarios})
+}
+
+export async function delcomentario(req,res){
+    await Comentarios.findByIdAndDelete(req.params.id)
+    res.redirect('/lstcomentarios')
+}
+
+export async function abreedtcomentario(req,res){
+    const comentario = await Comentario.findById(req.params.id)
+    res.render('edtusuario.ejs',{"Comentario":comentario})
+}
+
+export async function edtcomentario(req,res){
+    const comentario = await Comentario.findById(req.params.id)
+    comentario.nome = req.body.nome
+    comentario.email = req.body.email
+    comentario.turma = req.body.turma
+    comentario.comentario = req.body.comentario
+    await comentario.save()
+    res.redirect('/lstcomentarios')
+}
