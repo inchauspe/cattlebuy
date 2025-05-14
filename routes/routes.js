@@ -2,7 +2,7 @@ import express from 'express';
 const router = express.Router();
 
 import { 
-            abreIndex,
+            inicial,
             abreaddusuario,
             addusuario,
             listarusuarios,
@@ -13,8 +13,6 @@ import {
             abreaddlote,
             addlote,     
         } from '../controllers/controllers.js';
-
-router.get('/formulario',abreIndex)
 
 router.get('/addusuario', abreaddusuario)
 router.post('/addusuario',addusuario)
@@ -29,5 +27,6 @@ router.get('/addlote', abreaddlote)
 router.post('/addlote', addlote)
 
 router.get("/delusuario/:id",delusuario)
+router.get("/",inicial)
 
 export default router

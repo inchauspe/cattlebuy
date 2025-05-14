@@ -1,0 +1,60 @@
+<%-include('../cabecalho.ejs')%>
+<h1>Listagem de Times</h1>
+<div class="search">
+  <form method="post">
+    <input type="text" name="pesquisa" placeholder="digite a busca.."><button type="submit"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;Pesquisar</button>
+  </form>
+</div>
+<!-- Tabela de Times -->
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Estádio</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Time A</td>
+      <td>Estádio A</td>
+      <td>
+        <a href="/admin2/time/edt/1" class="btn edit"><i class="fas fa-edit"></i>&nbsp;Editar</a>
+        <button class="btn delete"  onclick="confirmarExclusao()"><i class="fas fa-trash"></i>&nbsp; Excluir</button>
+      </td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Time B</td>
+      <td>Estádio B</td>
+      <td>
+        <a href="/admin2/time/edt/1" class="btn edit"><i class="fas fa-edit"></i>&nbsp;Editar</a>
+        <button class="btn delete" onclick="confirmarExclusao()"><i class="fas fa-trash"></i>&nbsp;Excluir</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="footer">
+  <a href="/admin2/time/add" class="btn add"><i class="fas fa-add"></i>&nbsp;Adicionar</a>
+</div>
+
+
+<script>
+function confirmarExclusao() {
+    // Exibe a mensagem de confirmação
+    var confirmacao = confirm("Tem certeza que deseja excluir?");
+
+    // Se o usuário confirmar, executa a ação de exclusão
+    if (confirmacao) {
+        // Aqui você processa a exclusão
+        alert("Item excluído com sucesso!");
+      
+    } else {
+        // Se o usuário cancelar, não faz nada
+        alert("Exclusão cancelada.");
+    }
+}
+</script>
+<%-include('../rodape.ejs')%>

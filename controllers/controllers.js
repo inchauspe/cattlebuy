@@ -1,7 +1,7 @@
 import Usuario from '../models/Usuario.js';
 import Lote from '../models/Lote.js';
 
-export function abreIndex(req,res){
+export function inicial(req,res){
     res.render('index.ejs')
 }
 
@@ -13,7 +13,7 @@ export function olaMundo(req,res){
 }
 
 export function abreaddusuario(req,res){
-    res.render('addusuario.ejs')
+    res.render('usuario/add')
 }
 
 export function addusuario(req,res){
@@ -28,9 +28,9 @@ export function addusuario(req,res){
 }
 
 export async function listarusuarios(req,res){
-    const usuarios = await Usuario.find({})
+    //const usuarios = await Usuario.find({})
     //res.json(usuarios)
-    res.render('listarusuarios.ejs',{"Usuarios":usuarios})
+    res.render('usuario/lst',"")
 }
 
 export async function filtrarusuarios(req,res){
@@ -45,8 +45,8 @@ export async function delusuario(req,res){
 }
 
 export async function abreedtusuario(req,res){
-    const usuario = await Usuario.findById(req.params.id)
-    res.render('edtusuario.ejs',{"Usuario":usuario})
+    //const usuario = await Usuario.findById(req.params.id)
+    res.render('usuario/edt',"")
 }
 
 export async function edtusuario(req,res){
