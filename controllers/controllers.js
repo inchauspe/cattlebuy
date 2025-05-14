@@ -1,4 +1,5 @@
 import Usuario from '../models/Usuario.js';
+import Lote from '../models/Lote.js';
 
 export function abreIndex(req,res){
     res.render('index.ejs')
@@ -9,36 +10,6 @@ export function olaMundo(req,res){
     var cor = req.body.cor
     var turno = req.body.turno
     res.render('ola.ejs',{"nome":nome, "cor":cor, "turno":turno})
-}
-
-export function abreCalculadora(req,res,next){
-    res.render('calculadora.ejs')
-}
-
-export function calculadora(req,res){
-    var num1 = parseFloat(req.body.num1)
-    var num2 = parseFloat(req.body.num2)
-    var operacao = req.body.operacao
-    var resultado = 0
-    if (operacao == "somar"){
-        resultado = num1 + num2
-    } else if (operacao == "subtrair"){
-        resultado = num1 - num2
-    } else if (operacao == "multiplicar"){
-        resultado = num1 * num2
-    } else if (operacao == "dividir"){
-        resultado = num1 / num2
-    }
-    res.render('resultado.ejs',{"resultado":resultado, "num1":num1, "num2":num2, "operacao":operacao})
-}
-
-export function abreTabuada(req,res){
-    res.render('tabuada.ejs', {"num":"a"})
-}
-
-export function tabuada(req,res){
-    var num = parseFloat(req.body.num)
-    res.render('tabuada.ejs', {"num":num})
 }
 
 export function abreaddusuario(req,res){
@@ -88,51 +59,50 @@ export async function edtusuario(req,res){
     res.redirect('/lstusuarios')
 }
 
-import Comentario from '../models/Comentario.js';
-
-export function abreaddcomentario(req,res){
-    res.render('addcomentario.ejs')
+export function abreaddlote(req,res){
+    res.render('addlote.ejs')
 }
 
-export function addcomentario(req,res){
-    let comentario = new Comentario({
-        nome: req.body.nome,
-        email: req.body.email,
-        turma: req.body.turma,
-        comentario: req.body.comentario
+export function addlote(req,res){
+    let lote = new Lote({
+        sexo: req.body.raca,
+        raca: req.body.raca,
+        medicamentos: req.body.medicamentos,
+        foto: req.body.foto
     })
-    comentario.save();
-    res.redirect('/addcomentario')
+    lote.save();
+    res.redirect('/addlote')
 }
 
-export async function listarcomentarios(req,res){
-    const comentarios = await Comentario.find({})
-    //res.json(usuarios)
-    res.render('listarcomentarios.ejs',{"Comentarios":comentarios})
+export async function listarlote(req,res){
+    const lote = await Lote.find({})
+    //res.json(lote)
+    res.render('listarlote.ejs',{"Lote":lote})
 }
 
-export async function filtrarcomentarios(req,res){
+export async function filtrarlote(req,res){
     const filtro = req.body.filtro
-    const comentarios = await Comentario.find({nome: new RegExp(filtro,'g')})
-    res.render('listarcomentarios.ejs',{"Comentarios":comentarios})
+    const lote = await Lote.find({sexo: new RegExp(filtro,'g')})
+    res.render('listarlote.ejs',{"Lote":lote})
 }
 
-export async function delcomentario(req,res){
-    await Comentarios.findByIdAndDelete(req.params.id)
-    res.redirect('/lstcomentarios')
+export async function dellote(req,res){
+    await Lote.findByIdAndDelete(req.params.id)
+    res.redirect('/lstlote')
 }
 
-export async function abreedtcomentario(req,res){
-    const comentario = await Comentario.findById(req.params.id)
-    res.render('edtusuario.ejs',{"Comentario":comentario})
+export async function abreedtlote(req,res){
+    const lote = await Lote.findById(req.params.id)
+    res.render('edtlote.ejs',{"Lote":lote})
 }
 
-export async function edtcomentario(req,res){
-    const comentario = await Comentario.findById(req.params.id)
-    comentario.nome = req.body.nome
-    comentario.email = req.body.email
-    comentario.turma = req.body.turma
-    comentario.comentario = req.body.comentario
-    await comentario.save()
-    res.redirect('/lstcomentarios')
+export async function edtlote(req,res){
+    const lote = await Lote.findById(req.params.id)
+    lote.sexo = req.body.sexo
+    lote.raca = req.body.raca
+    lote.medicamentos = req.body.medicamentos
+    lote.foto = req.body.foto
+    await lote.save()
+    res.redirect('/lstlote')
 }
+
