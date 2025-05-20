@@ -5,13 +5,6 @@ export function inicial(req,res){
     res.render('index.ejs')
 }
 
-export function olaMundo(req,res){
-    var nome = req.body.nome
-    var cor = req.body.cor
-    var turno = req.body.turno
-    res.render('ola.ejs',{"nome":nome, "cor":cor, "turno":turno})
-}
-
 export function abreaddusuario(req,res){
     res.render('usuario/add')
 }
@@ -46,7 +39,7 @@ export async function delusuario(req,res){
 
 export async function abreedtusuario(req,res){
     //const usuario = await Usuario.findById(req.params.id)
-    res.render('usuario/edt',"")
+    res.render('/edtusuario',"")
 }
 
 export async function edtusuario(req,res){
@@ -56,19 +49,21 @@ export async function edtusuario(req,res){
     usuario.senha = req.body.senha
     usuario.foto = req.body.foto
     await usuario.save()
-    res.redirect('/lstusuarios')
+    res.redirect('/lstusuario')
 }
 
 export function abreaddlote(req,res){
-    res.render('addlote.ejs')
+    res.render('lote/add')
 }
 
 export function addlote(req,res){
     let lote = new Lote({
-        sexo: req.body.raca,
+        id: req.body.id,
+        idade: req.body.idade,
+        sexo: req.body.sexo,
         raca: req.body.raca,
         medicamentos: req.body.medicamentos,
-        foto: req.body.foto
+        peso: req.body.peso,
     })
     lote.save();
     res.redirect('/addlote')
@@ -77,7 +72,7 @@ export function addlote(req,res){
 export async function listarlote(req,res){
     const lote = await Lote.find({})
     //res.json(lote)
-    res.render('listarlote.ejs',{"Lote":lote})
+    res.render('lote/lst',"")
 }
 
 export async function filtrarlote(req,res){
@@ -98,10 +93,12 @@ export async function abreedtlote(req,res){
 
 export async function edtlote(req,res){
     const lote = await Lote.findById(req.params.id)
+    lote.id = req.body.id
+    lote.idade = req.body.idade
     lote.sexo = req.body.sexo
     lote.raca = req.body.raca
     lote.medicamentos = req.body.medicamentos
-    lote.foto = req.body.foto
+    lote.peso = req.body.peso
     await lote.save()
     res.redirect('/lstlote')
 }

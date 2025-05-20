@@ -1,9 +1,8 @@
 <%-include('../cabecalho.ejs')%>
-  <h1>Listagem de usuários</h1>
+  <h1>LISTAGEM DE USUÁRIOS</h1>
   <div class="search">
     <form method="post">
-      <input type="text" name="pesquisa" placeholder="digite a busca.."><button type="submit"><i class="fa fa-search"
-          aria-hidden="true"></i>&nbsp;Pesquisar</button>
+      <input type="text" name="pesquisa" placeholder="Digite a busca..."><button type="submit"><i class="fa fa-search"aria-hidden="true"></i>&nbsp;Pesquisar</button>
     </form>
   </div>
   <table>
@@ -11,26 +10,32 @@
       <tr>
         <th>ID</th>
         <th>Nome</th>
-        <th>Estádio</th>
+        <th>Email</th>
+        <th>Senha</th>
+        <th>Foto</th>
         <th>Ações</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>1</td>
-        <td>Time A</td>
-        <td>Estádio A</td>
+        <td>Januario</td>
+        <td>januario@gmail.com</td>
+        <td>januario123</td>
+        <td>xxxxxxx</td>
         <td>
-          <a href="/admin2/time/edt/1" class="btn edit"><i class="fas fa-edit"></i>&nbsp;Editar</a>
+          <a href="/edtusuario" class="btn edit"><i class="fas fa-edit"></i>&nbsp;Editar</a>
           <button class="btn delete" onclick="confirmarExclusao()"><i class="fas fa-trash"></i>&nbsp; Excluir</button>
         </td>
       </tr>
       <tr>
         <td>2</td>
-        <td>Time B</td>
-        <td>Estádio B</td>
+        <td>Vanzer</td>
+        <td>vanzer@gmail.com</td>
+        <td>vanzer123</td>
+        <td>xxxxxxx</td>
         <td>
-          <a href="/admin2/time/edt/1" class="btn edit"><i class="fas fa-edit"></i>&nbsp;Editar</a>
+          <a href="/edtusuario" class="btn edit"><i class="fas fa-edit"></i>&nbsp;Editar</a>
           <button class="btn delete" onclick="confirmarExclusao()"><i class="fas fa-trash"></i>&nbsp;Excluir</button>
         </td>
       </tr>
@@ -39,22 +44,4 @@
   <div class="footer">
     <a href="/addusuario" class="btn add"><i class="fas fa-add"></i>&nbsp;Adicionar</a>
   </div>
-
-
-  <script>
-    function confirmarExclusao() {
-      // Exibe a mensagem de confirmação
-      var confirmacao = confirm("Tem certeza que deseja excluir?");
-
-      // Se o usuário confirmar, executa a ação de exclusão
-      if (confirmacao) {
-        // Aqui você processa a exclusão
-        alert("Item excluído com sucesso!");
-
-      } else {
-        // Se o usuário cancelar, não faz nada
-        alert("Exclusão cancelada.");
-      }
-    }
-  </script>
   <%-include('../rodape.ejs')%>
