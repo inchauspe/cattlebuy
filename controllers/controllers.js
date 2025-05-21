@@ -1,10 +1,13 @@
 import Usuario from '../models/Usuario.js';
 import Lote from '../models/Lote.js';
+import bcrypt from 'bcrypt'; 
 
+//FUNÇÃO INICIAL
 export function inicial(req,res){
     res.render('index.ejs')
 }
 
+//FUNÇÕES DO USUARIO
 export function abreaddusuario(req,res){
     res.render('usuario/add')
 }
@@ -52,6 +55,7 @@ export async function edtusuario(req,res){
     res.redirect('/lstusuario')
 }
 
+//FUNÇÕES DO LOTE
 export function abreaddlote(req,res){
     res.render('lote/add')
 }
@@ -102,4 +106,59 @@ export async function edtlote(req,res){
     await lote.save()
     res.redirect('/lstlote')
 }
+
+//FUNÇÕES DE LOGIN E REGISTRO
+export const abreregistro = (req, res) => {
+  res.render('registro');
+};
+
+export const registro = async (req, res) => {
+  try {
+    const { nome, email, senha, tipo } = req.body;
+    const novoUsuario = new Usuario({ nome, email, senha: senhaHash, foto, tipo });
+    const foto = req.file ? req.file.filename : null;
+
+    const existe = await Usuario.findOne({ email });
+    if (existe) {
+      return res.send('Email já cadastrado.');
+    }
+
+    const senhaHash = await bcrypt.hash(senha, 10);
+    await novoUsuario.save();
+    res.redirect('/login');
+  } catch (err) {
+    res.status(500).send('Erro ao registrar usuário.');
+  }
+};
+
+export const abrelogin = (req, res) => {
+  res.render('login');
+};
+
+export const login = async (req, res) => {
+  try {
+    const { email, senha } = req.body;
+    const usuario = await Usuario.findOne({ email });
+    if (!usuario) return res.send('Usuário não encontrado.');
+
+    const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
+    if (!senhaCorreta) return res.send('Senha incorreta.');
+
+    req.session.usuario = {
+      id: usuario._id,
+      nome: usuario.nome,
+      email: usuario.email,
+    };
+
+    res.redirect('/lstlote');
+  } catch (err) {
+    res.status(500).send('Erro ao fazer login.');
+  }
+};
+
+export const logout = (req, res) => {
+  req.session.destroy();
+  res.redirect('/login');
+};
+
 

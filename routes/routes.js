@@ -1,5 +1,11 @@
 import express from 'express';
 const router = express.Router();
+import multer from 'multer';
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, 'public/uploads'),
+  filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname),
+});
+const upload = multer({ storage });
 
 import { 
             inicial,
@@ -17,6 +23,11 @@ import {
             dellote,
             abreedtlote,
             edtlote,
+            abrelogin,
+            login,
+            abreregistro,
+            registro,
+            logout,
         } from '../controllers/controllers.js';
 
 router.get('/addusuario', abreaddusuario)
@@ -42,5 +53,13 @@ router.post('/edtlote/:id', edtlote)
 router.get('/dellote/:id', dellote)
 
 router.get("/",inicial)
+
+router.get('/login', abrelogin);
+router.post('/login', login);
+
+router.get('/registro', abreregistro);
+router.post('/registro', registro);
+
+router.get('/logout', logout);
 
 export default router
