@@ -114,6 +114,11 @@ export const abreregistro = (req, res) => {
 
 export const registro = async (req, res) => {
   try {
+    const tipoValido = ['Comprador', 'Produtor'];
+    if (!tipoValido.includes(tipo)) {
+    return res.status(400).send('Tipo de usuário inválido.');
+    }
+
     const { nome, email, senha, tipo } = req.body;
     const novoUsuario = new Usuario({ nome, email, senha: senhaHash, foto, tipo });
     const foto = req.file ? req.file.filename : null;
@@ -148,9 +153,16 @@ export const login = async (req, res) => {
       id: usuario._id,
       nome: usuario.nome,
       email: usuario.email,
+      tipo: usuario.tipo
     };
 
-    res.redirect('/lstlote');
+    // Redireciona conforme o tipo
+    if (usuario.tipo === 'Admin') {
+      res.redirect('/lstusuarios');
+    } else {
+      res.redirect('/lstlote');
+    }
+
   } catch (err) {
     res.status(500).send('Erro ao fazer login.');
   }

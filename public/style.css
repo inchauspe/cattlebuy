@@ -1,130 +1,176 @@
 /* Estilos Gerais */
 body {
-    font-family: Arial, sans-serif;
-    background-color: 	#001f3f;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  .footer{
-    padding: 20px;
-  }
-  
-  .container {
-    background-color: #003366;
-    padding: 20px;
-    border-radius: 8px;
-    border: 2px #F0F0F0 solid;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    max-width: 100%;
-  }
-  
-  h1 {
-    text-align: center;
-    color: #FFF;
-    margin-bottom: 20px;
-  }
-  
-  /* Estilos do Menu de Navegação */
-  .menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: line;
-    gap: 10px;
-  }
-  
-  .menu ul li {
-    text-align: center;
-  }
-  
-  /* Estilos do Formulário */
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 5px;
-    color: #555;
-  }
-  
-  .form-group input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  /* Estilos dos Botões */
-  .btn {
-    display: inline-block;
-    padding: 10px 15px;
-    border: 2px solid #F0F0F0;
-    border-radius: 8px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    font-size: 14px;
-  }
-  
-  .btn {
-    background-color: #001f3f;
-    color: #fff;
-  }
-  
-  .btn.edit {
-    background-color: #ffc107;
-    color: #000;
-  }
-  
-  .btn.add {
-    color: #fff;
-    background-color:#1c0df3
-  }
-  
-  .btn.delete {
-    background-color: #dc3545;
-    color: #fff;
-  }
-  
-  .btn.cancelar {
-    background-color: #6c757d;
-    color: #fff;
-  }
-  
-  .btn:hover {
-    opacity: 0.9;
-  }
-  
-  /* Estilos da Tabela */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  table th, table td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  table th {
-    background-color: #f8f9fa;
-  }
-  
-  table tr:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .search
-  {
-    text-align: right;
-  }
+  font-family: Arial, sans-serif;
+  background-color: #001f3f;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container-inicial {
+  background-color: #003366;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 2px #F0F0F0 solid;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  height: 17%;
+  max-width: 400px;
+  margin: 80px auto;
+  padding: 20px;
+}
+
+.container-login {
+  background-color: #003366;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 2px #F0F0F0 solid;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  width: 15%;
+  height: 17%;
+  max-width: 400px;
+  margin: 80px auto;
+  padding: 20px;
+}
+
+.container-registro {
+  background-color: #003366;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 2px #F0F0F0 solid;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  width: 15%;
+  height: 28%;
+  max-width: 400px;
+  margin: 80px auto;
+  padding: 20px;
+}
+
+.footer {
+  padding: 20px;
+}
+
+.container {
+  background-color: #003366;
+  padding: 20px;
+  border-radius: 8px;
+  border: 2px #F0F0F0 solid;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 100%;
+}
+
+h1 {
+  text-align: center;
+  color: #FFF;
+  margin-bottom: 20px;
+}
+
+/* Estilos do Menu de Navegação */
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: line;
+  gap: 10px;
+}
+
+.menu ul li {
+  text-align: center;
+}
+
+/* Estilos do Formulário */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.form-group input {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Estilos dos Botões */
+.btn {
+  display: inline-block;
+  padding: 10px 15px;
+  border: 2px solid #F0F0F0;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.btn {
+  background-color: #001f3f;
+  color: #fff;
+}
+
+.btn.edit {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.btn.add {
+  color: #fff;
+  background-color: #1c0df3
+}
+
+.btn.delete {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.btn.cancelar {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+/* Estilos da Tabela */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table th,
+table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+table th {
+  background-color: #f8f9fa;
+}
+
+table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.search {
+  text-align: right;
+}
