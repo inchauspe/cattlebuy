@@ -28,6 +28,7 @@ import {
             abreregistro,
             registro,
             logout,
+            home, 
         } from '../controllers/controllers.js';
 
 router.get('/addusuario', abreaddusuario)
@@ -61,5 +62,7 @@ router.get('/registro', abreregistro);
 router.post('/registro', registro);
 
 router.get('/logout', logout);
+
+router.get('/home', home);
 
 export default router

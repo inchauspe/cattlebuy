@@ -173,4 +173,7 @@ export const logout = (req, res) => {
   res.redirect('/login');
 };
 
+export function home(req, res) {
+  res.render('home'); 
+}
 
