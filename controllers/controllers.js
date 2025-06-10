@@ -23,10 +23,9 @@ export function addusuario(req,res){
     res.redirect('/addusuario')
 }
 
-export async function listarusuarios(req,res){
-    //const usuarios = await Usuario.find({})
-    //res.json(usuarios)
-    res.render('usuario/lst',"")
+export async function listarusuarios(req, res) {
+  const usuarios = await Usuario.find({});
+  res.render('usuario/lst', { usuarios }); 
 }
 
 export async function filtrarusuarios(req,res){
@@ -40,9 +39,9 @@ export async function delusuario(req,res){
     res.redirect('/lstusuarios')
 }
 
-export async function abreedtusuario(req,res){
-    //const usuario = await Usuario.findById(req.params.id)
-    res.render('/edtusuario',"")
+export async function abreedtusuario(req, res) {
+  const usuario = await Usuario.findById(req.params.id);
+  res.render('usuario/edt', { usuario }); 
 }
 
 export async function edtusuario(req,res){
@@ -76,7 +75,8 @@ export function addlote(req,res){
 export async function listarlote(req,res){
     const lote = await Lote.find({})
     //res.json(lote)
-    res.render('lote/lst',"")
+    res.render('lote/lst', { Lote: lote });
+
 }
 
 export async function filtrarlote(req,res){
@@ -92,7 +92,7 @@ export async function dellote(req,res){
 
 export async function abreedtlote(req,res){
     const lote = await Lote.findById(req.params.id)
-    res.render('edtlote.ejs',{"Lote":lote})
+    res.render('lote/edtlote', { Lote: lote });
 }
 
 export async function edtlote(req,res){
@@ -114,14 +114,11 @@ export const abreregistro = (req, res) => {
 
 export const registro = async (req, res) => {
   try {
-    const tipoValido = ['Comprador', 'Produtor'];
-    if (!tipoValido.includes(tipo)) {
-    return res.status(400).send('Tipo de usuário inválido.');
-    }
-
     const { nome, email, senha, tipo } = req.body;
-    const novoUsuario = new Usuario({ nome, email, senha: senhaHash, foto, tipo });
-    const foto = req.file ? req.file.filename : null;
+    const tipoValido = ['Comprador', 'Produtor', 'Admin'];
+    if (!tipoValido.includes(tipo)) {
+      return res.status(400).send('Tipo de usuário inválido.');
+    }
 
     const existe = await Usuario.findOne({ email });
     if (existe) {
@@ -129,6 +126,9 @@ export const registro = async (req, res) => {
     }
 
     const senhaHash = await bcrypt.hash(senha, 10);
+    const foto = req.file ? req.file.filename : null;
+
+    const novoUsuario = new Usuario({ nome, email, senha: senhaHash, foto, tipo });
     await novoUsuario.save();
     res.redirect('/login');
   } catch (err) {
@@ -173,7 +173,10 @@ export const logout = (req, res) => {
   res.redirect('/login');
 };
 
-export function home(req, res) {
-  res.render('home'); 
+export function abreprodutor(req,res){
+  res.render('produtorHome')
 }
 
+export function produtorHome(req,res){
+  res.redirect('/addlote')
+}
