@@ -30,6 +30,8 @@ import {
             logout,
             produtorHome, 
             abreprodutor,
+            painelAdmin,
+            dashboard,
         } from '../controllers/controllers.js';
 
 router.get('/addusuario', abreaddusuario)
@@ -66,5 +68,8 @@ router.get('/logout', logout);
 
 router.get('/produtorHome', abreprodutor);
 router.post ('/produtorHome', produtorHome);
+
+router.get('/dashboard', painelAdmin);
+router.post('/dashboard', dashboard)
 
 export default router

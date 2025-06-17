@@ -74,7 +74,6 @@ export function addlote(req,res){
 
 export async function listarlote(req,res){
     const lote = await Lote.find({})
-    //res.json(lote)
     res.render('lote/lst', { Lote: lote });
 
 }
@@ -173,10 +172,20 @@ export const logout = (req, res) => {
   res.redirect('/login');
 };
 
+//TELA DO PRODUTOR
 export function abreprodutor(req,res){
   res.render('produtorHome')
 }
 
 export function produtorHome(req,res){
+  res.redirect('/addlote')
+}
+
+//TELA DO ADMIN
+export function painelAdmin(req, res) {
+  res.render('dashboard');
+}
+
+export function dashboard(req,res){
   res.redirect('/addlote')
 }

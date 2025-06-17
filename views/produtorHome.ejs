@@ -1,64 +1,86 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
-    <title>Painel do Produtor</title>
-    <link rel="stylesheet" href="/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página inicial | Cattlebuy</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="fundo">
-    <div class="container">
-
-        <!-- Cabeçalho -->
-        <header style="margin-bottom: 20px;">
+    <!-- Cabeçalho Fixo -->
+    <header class="container"
+        style="width: 98%; max-width: 100%; border-radius: 0; border-top: 0; margin: 0; padding: 10px 20px; position: fixed; top: 0; z-index: 100; background-color: #001f3f;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h1 style="margin: 0; color: #FFF; font-size: 1.5rem;">Cattlebuy</h1>
             <nav class="menu">
-                <ul style="display: flex; justify-content: space-between;">
-                    <li><a class="btn" href="/sobre">Sobre</a></li>
-                    <li><a class="btn" href="/perfil">Perfil</a></li>
+                <ul style="display: flex; gap: 20px; list-style: none;">
+                    <li><a href="/sobre" style="color: #FFF; text-decoration: none; font-weight: bold;">SOBRE</a></li>
+                    <li><a href="/ajuda" style="color: #FFF; text-decoration: none; font-weight: bold;">AJUDA</a></li>
+                    <li><a href="/logout" style="color: #FF6B6B; text-decoration: none; font-weight: bold;">SAIR</a>
+                    </li>
                 </ul>
             </nav>
-        </header>
+        </div>
+    </header>
 
-        <h1>Cadastro de Lote</h1>
+    <!-- Conteúdo Principal -->
+    <main style="display: flex; margin-top: 80px; padding: 20px; gap: 20px;">
+        <!-- Container do Perfil (Esquerda) -->
+        <div class="container" style="width: 30%; min-width: 250px;">
+            <div style="text-align: center;">
+                <!-- Foto de perfil placeholder -->
+                <img src="https://via.placeholder.com/150" alt="Foto do Perfil"
+                    style="border-radius: 50%; border: 3px solid #F0F0F0; margin-bottom: 15px;">
 
-        <!-- Formulário para cadastrar lote -->
-        <form action="/addlote" method="POST">
-            <div class="form-group">
-                <label for="id">Identificação do Lote</label>
-                <input type="text" id="id" name="id" required>
+                <h2 style="color: #FFF;">João da Silva</h2>
+                <p style="color: #FFF;"><strong>Email:</strong> joao.silva@exemplo.com</p>
+                <p style="color: #FFF;"><strong>Senha:</strong> ••••••••</p>
+
+                <button class="btn edit" style="margin-top: 15px;">Editar Perfil</button>
+            </div>
+        </div>
+
+        <!-- Container dos Lotes (Direita) -->
+        <div class="container" style="flex: 1;">
+            <!-- Botão para adicionar lote -->
+            <div style="text-align: right; margin-bottom: 20px;">
+                <a href="/addlote" class="btn add">+ Adicionar Lote</a>
             </div>
 
-            <div class="form-group">
-                <label for="idade">Idade (em meses)</label>
-                <input type="number" id="idade" name="idade" required>
-            </div>
+            <!-- Lista de Lotes -->
+            <div>
+                <h2 style="color: #FFF; border-bottom: 1px solid #F0F0F0; padding-bottom: 10px;">Meus Lotes</h2>
 
-            <div class="form-group">
-                <label for="sexo">Sexo</label>
-                <input type="text" id="sexo" name="sexo" required>
-            </div>
+                <!-- Exemplo quando há lotes (comente/descomente para alternar) -->
+                <div style="margin-top: 20px;">
+                    <div
+                        style="background-color: rgba(0, 51, 102, 0.7); padding: 15px; border-radius: 5px; margin-bottom: 10px; border: 1px solid #F0F0F0;">
+                        <h3 style="color: #FFF; margin-top: 0;">Lote #001</h3>
+                        <p style="color: #FFF;"><strong>Quantidade:</strong> 50 cabeças</p>
+                        <p style="color: #FFF;"><strong>Raça:</strong> Nelore</p>
+                        <p style="color: #FFF;"><strong>Preço:</strong> R$ 150,00 por cabeça</p>
+                        <button class="btn edit" style="margin-right: 5px;">Editar</button>
+                        <button class="btn delete">Remover</button>
+                    </div>
+                </div>
 
-            <div class="form-group">
-                <label for="raca">Raça</label>
-                <input type="text" id="raca" name="raca" required>
+                <!-- Exemplo quando NÃO há lotes (comente/descomente para alternar) -->
+                <!--
+                <div style="text-align: center; margin-top: 40px;">
+                    <p style="color: #FFF; font-size: 18px;">Você ainda não possui lotes cadastrados.</p>
+                    <p style="color: #FFF;">Clique em "Adicionar Lote" para começar!</p>
+                </div>
+                -->
             </div>
+        </div>
+    </main>
 
-            <div class="form-group">
-                <label for="medicamentos">Medicamentos</label>
-                <input type="text" id="medicamentos" name="medicamentos">
-            </div>
-
-            <div class="form-group">
-                <label for="peso">Peso (kg)</label>
-                <input type="number" id="peso" name="peso" required>
-            </div>
-
-            <div class="form-group" style="text-align: center;">
-                <button type="submit" class="btn add">Cadastrar Lote</button>
-            </div>
-        </form>
-    </div>
+    <!-- Rodapé -->
+    <footer class="footer" style="text-align: center; color: #FFF; padding: 20px;">
+        <p>Sistema de Compra de Gado © 2023</p>
+    </footer>
 </body>
 
 </html>
