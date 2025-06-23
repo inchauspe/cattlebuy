@@ -1,33 +1,61 @@
 <%-include('../cabecalho.ejs')%>
 
-    <h1>ADICIONAR LOTE</h1>
-    <form>
-      <div class="form-group">
-        <label for="id">ID:</label>
-        <input type="number" id="id" name="id" required>
+  <h1 style="text-align: center; color: #FFF;">ADICIONAR LOTE</h1>
+  <form action="/lotes" method="POST" class="form-lote">
+    <!-- Campo Raça (mantido) -->
+    <div class="form-group">
+      <label for="raca">Raça:</label>
+      <input type="text" id="raca" name="raca" required>
+    </div>
+
+    <!-- Campo Sexo (agora como select) -->
+    <div class="form-group">
+      <label for="sexo">Sexo:</label>
+      <select id="sexo" name="sexo" required>
+        <option value="">Selecione</option>
+        <option value="Macho">Macho</option>
+        <option value="Fêmea">Fêmea</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="peso">Peso médio em kg:</label>
+      <input type="number" id="peso" name="peso" required>
+    </div>
+    <div class="form-group">
+      <label for="denticao">Dentição:</label>
+      <select id="denticao" name="denticao" required>
+        <option value="">Selecione</option>
+        <option value="2">2</option>
+        <option value="4">4</option>
+        <option value="6">6</option>
+        <option value="8">8</option>
+      </select>
+    </div>
+        <!-- Campo Medicamentos como Checkboxes -->
+    <div class="form-group">
+      <label>Medicamentos:</label>
+      <div class="checkbox-group">
+        <label class="checkbox-option">
+          <input type="checkbox" name="medicamentos" value="Ivermectina">
+          <span>Ivermectina</span>
+        </label>
+        
+        <label class="checkbox-option">
+          <input type="checkbox" name="medicamentos" value="Vitaminado">
+          <span>Complexo vitamínico</span>
+        </label>
+        
+        <label class="checkbox-option">
+          <input type="checkbox" name="medicamentos" value="Antibiótico">
+          <span>Antibiótico</span>
+        </label>
       </div>
-      <div class="form-group">
-        <label for="raca">Raça:</label>
-        <input type="text" id="raca" name="raca" required>
-      </div>
-      <div class="form-group">
-        <label for="sexo">Sexo:</label>
-        <input type="text" id="sexo" name="sexo" required>
-      </div>
-      <div class="form-group">
-        <label for="peso">Peso médio em kg:</label>
-        <input type="number" id="peso" name="peso" required>
-      </div>
-      <div class="form-group">
-        <label for="denticao">Dentição:</label>
-        <input type="text" id="denticao" name="denticao" required>
-      </div>
-       <div class="form-group">
-        <label for="medicamentos">Medicamentos:</label>
-        <input type="text" id="medicamentos" name="medicamentos" required>
-      </div>
-      <button type="submit" class="btn">Salvar</button>
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn add">Salvar</button>
       <a href="/lstlote" class="btn cancelar">Cancelar</a>
-    </form>
+    </div>
+  </form>
+</div>
 
 <%-include('../rodape.ejs')%>
