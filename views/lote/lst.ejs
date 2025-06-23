@@ -1,51 +1,64 @@
-<%-include('../cabecalho.ejs')%>
+<%- include('../cabecalho.ejs') %>
+
   <h1>LISTAGEM DE LOTES</h1>
+
   <div class="search">
-    <form method="post">
-      <input type="text" name="pesquisa" placeholder="Digite a busca..."><button type="submit"><i class="fa fa-search"
-          aria-hidden="true"></i>&nbsp;Pesquisar</button>
+    <form action="/filtroLote" method="post">
+      <input type="text" name="pesquisa" placeholder="Digite a busca...">
+      <button type="submit">
+        <i class="fa fa-search" aria-hidden="true"></i>&nbsp;Pesquisar
+      </button>
     </form>
   </div>
+
   <table>
     <thead>
       <tr>
         <th>ID</th>
         <th>Raça</th>
         <th>Sexo</th>
-        <th>Peso médio em kg</th>
+        <th>Peso médio (kg)</th>
         <th>Dentição</th>
         <th>Medicamentos</th>
         <th>Ações</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>1</td>
-        <td>Angus</td>
-        <td>Macho</td>
-        <td>635.8</td>
-        <td>2 dentes</td>
-        <td>xxxxxxxx</td>
-        <td>
-          <a href="/edtlote" class="btn edit"><i class="fas fa-edit"></i>&nbsp;Editar</a>
-          <button class="btn delete" onclick="confirmarExclusao()"><i class="fas fa-trash"></i>&nbsp; Excluir</button>
-        </td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Cruzado</td>
-        <td>Macho</td>
-        <td>587.2</td>
-        <td>2 dentes</td>
-        <td>xxxxxxxx</td>
-        <td>
-          <a href="/edtlote" class="btn edit"><i class="fas fa-edit"></i>&nbsp;Editar</a>
-          <button class="btn delete" onclick="confirmarExclusao()"><i class="fas fa-trash"></i>&nbsp;Excluir</button>
-        </td>
-      </tr>
+      <% lotes.forEach(lote=> { %>
+        <tr>
+          <td>
+            <%= lote._id %>
+          </td>
+          <td>
+            <%= lote.raca %>
+          </td>
+          <td>
+            <%= lote.sexo %>
+          </td>
+          <td>
+            <%= lote.peso %>
+          </td>
+          <td>
+            <%= lote.denticao %>
+          </td>
+          <td>
+            <%= lote.medicamentos %>
+          </td>
+          <td>
+            <a href="/edtlote/<%= lote._id %>" class="btn edit">
+              <i class="fas fa-edit"></i>&nbsp;Editar
+            </a>
+            <a href="/dellote/<%= lote._id %>" class="btn delete" onclick="return confirm('Deseja excluir este lote?')">
+              <i class="fas fa-trash"></i>&nbsp;Excluir
+            </a>
+          </td>
+        </tr>
+        <% }) %>
     </tbody>
   </table>
+
   <div class="footer">
     <a href="/addlote" class="btn add"><i class="fas fa-add"></i>&nbsp;Adicionar</a>
   </div>
-  <%-include('../rodape.ejs')%>
+
+  <%- include('../rodape.ejs') %>

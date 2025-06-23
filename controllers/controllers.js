@@ -72,11 +72,15 @@ export function addlote(req,res){
     res.redirect('/addlote')
 }
 
-export async function listarlote(req,res){
-    const lote = await Lote.find({})
-    res.render('lote/lst', { Lote: lote });
+export const listarlote = async (req, res) => {
+  try {
+    const lotes = await Lote.find(); // busca os lotes no banco
+    res.render('lote/lst', { lotes }); // envia para a view
+  } catch (error) {
+    res.status(500).send('Erro ao listar os lotes.');
+  }
+};
 
-}
 
 export async function filtrarlote(req,res){
     const filtro = req.body.filtro
@@ -155,11 +159,14 @@ export const login = async (req, res) => {
       tipo: usuario.tipo
     };
 
-    // Redireciona conforme o tipo
     if (usuario.tipo === 'Admin') {
-      res.redirect('/lstusuarios');
+      res.redirect('/dashboard');
+    } else if (usuario.tipo === 'Comprador') {
+      res.redirect('/compradorHome');
+    } else if (usuario.tipo === 'Produtor') {
+      res.redirect('/produtorHome');
     } else {
-      res.redirect('/lstlote');
+      res.redirect('/login'); // fallback, se o tipo for inválido
     }
 
   } catch (err) {
@@ -181,6 +188,15 @@ export function produtorHome(req,res){
   res.redirect('/addlote')
 }
 
+//TELA DO COMPRADOR
+export function abrecomprador(req,res){
+  res.render('compradorHome')
+}
+
+export function compradorHome(req,res){
+  res.redirect('/addlote')
+}
+
 //TELA DO ADMIN
 export function painelAdmin(req, res) {
   res.render('dashboard');
@@ -188,4 +204,57 @@ export function painelAdmin(req, res) {
 
 export function dashboard(req,res){
   res.redirect('/addlote')
+}
+
+//PERFIL
+export async function perfilUsuario(req, res) {
+  try {
+    if (!req.session.usuario) {
+      return res.redirect('/login');
+    }
+
+    const usuario = await Usuario.findById(req.session.usuario.id);
+    if (!usuario) {
+      return res.status(404).send('Usuário não encontrado.');
+    }
+
+    res.render('perfil', { usuario });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Erro ao carregar perfil.');
+  }
+}
+
+export async function atualizarPerfil(req, res) {
+  try {
+    if (!req.session.usuario) {
+      return res.redirect('/login');
+    }
+
+    const usuario = await Usuario.findById(req.session.usuario.id);
+    if (!usuario) {
+      return res.status(404).send('Usuário não encontrado.');
+    }
+
+    // Atualiza campos
+    usuario.nome = req.body.nome || usuario.nome;
+    usuario.email = req.body.email || usuario.email;
+
+    // Atualiza senha, se enviada
+    if (req.body.senha && req.body.senha.trim() !== '') {
+      const senhaHash = await bcrypt.hash(req.body.senha, 10);
+      usuario.senha = senhaHash;
+    }
+
+    // Atualiza foto, se enviada
+    if (req.file) {
+      usuario.foto = req.file.filename;
+    }
+
+    await usuario.save();
+    res.redirect('/perfil');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Erro ao atualizar perfil.');
+  }
 }

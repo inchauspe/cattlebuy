@@ -5,7 +5,8 @@ const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, 'public/uploads'),
   filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname),
 });
-const upload = multer({ storage });
+
+const upload = multer({ dest: 'public/uploads/' });
 
 import { 
             inicial,
@@ -30,8 +31,12 @@ import {
             logout,
             produtorHome, 
             abreprodutor,
+            abrecomprador,
+            compradorHome,
             painelAdmin,
             dashboard,
+            perfilUsuario,
+            atualizarPerfil,
         } from '../controllers/controllers.js';
 
 router.get('/addusuario', abreaddusuario)
@@ -62,14 +67,20 @@ router.get('/login', abrelogin);
 router.post('/login', login);
 
 router.get('/registro', abreregistro);
-router.post('/registro', registro);
+router.post('/registro', upload.single('foto'), registro);
 
 router.get('/logout', logout);
 
 router.get('/produtorHome', abreprodutor);
 router.post ('/produtorHome', produtorHome);
 
+router.get('/compradorHome', abrecomprador);
+router.post ('/compradorHome', compradorHome);
+
 router.get('/dashboard', painelAdmin);
 router.post('/dashboard', dashboard)
+
+router.get('/perfil', perfilUsuario);
+router.post('/perfil', upload.single('foto'), atualizarPerfil);
 
 export default router
