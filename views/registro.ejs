@@ -34,20 +34,42 @@
 
             <div>
                 <label for="tipo">Tipo de Usuário:</label>
-                <select name="tipo" id="tipo" required>
+                <select name="tipo" id="tipo" required onchange="exibirCamposProdutor(this.value)">
                     <option value="" disabled selected>Selecione</option>
                     <option value="Comprador">Comprador</option>
                     <option value="Produtor">Produtor</option>
                 </select>
             </div>
 
+            <div id="camposProdutor" style="display: none;">
+                <div>
+                    <label for="cidade">Cidade:</label>
+                    <input type="text" name="cidade" id="cidade" />
+                </div>
+                <div>
+                    <label for="estado">Estado:</label>
+                    <input type="text" name="estado" id="estado" />
+                </div>
+                <div>
+                    <label for="numero">Número para Contato:</label>
+                    <input type="text" name="numero" id="numero" />
+                </div>
+            </div>
+
             <div>
                 <button type="submit">Registrar</button>
             </div>
             <p>Já tem conta? <a href="/login">Faça login</a></p>
-        <a href="/" class="btn">Voltar</a>
+            <a href="/" class="btn">Voltar</a>
         </form>
     </div>
+
+    <script>
+        function exibirCamposProdutor(tipo) {
+            const divCampos = document.getElementById('camposProdutor');
+            divCampos.style.display = tipo === 'Produtor' ? 'block' : 'none';
+        }
+    </script>
 </body>
 
 </html>

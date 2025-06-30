@@ -5,7 +5,10 @@ const Usuario = conexao.Schema({
     email: {type:String, required:true, unique:true},
     senha: {type:String, required:true},
     tipo: {type: String, enum: ['Comprador', 'Produtor', 'Admin'], required: true},
-    foto: { type: String }
+    foto: { type: String },
+    cidade: {type: String},
+    estado: {type: String},
+    numero: {type: String},
 
 })
 

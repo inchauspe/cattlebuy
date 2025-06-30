@@ -152,51 +152,57 @@
             </div>
 
             <div class="actions">
-                <button class="btn cancelar" type="button" id="voltarBtn">Voltar</button>
-                <button class="btn edit" type="submit">Salvar Alterações</button>
+                <% if (tipoUsuario==='Produtor' ) { %>
+                    <a href="/produtorHome" class="btn cancelar">Voltar</a>
+                    <% } else if (tipoUsuario==='Comprador' ) { %>
+                        <a href="/compradorHome" class="btn cancelar">Voltar</a>
+                        <% } else { %>
+                            <a href="/" class="btn cancelar">Voltar</a> <!-- fallback -->
+                            <% } %>
+                                <button class="btn edit" type="submit">Salvar Alterações</button>
             </div>
-        </form>
-    </div>
+            <% if (usuario.tipo==='Produtor' ) { %>
+                <div class="form-group">
+                    <label for="cidade">Cidade:</label>
+                    <input type="text" id="cidade" name="cidade" value="<%= usuario.cidade || '' %>" readonly>
+                    <button class="btn edit" type="button" onclick="toggleEdit('cidade')">Editar</button>
+                </div>
 
-    <script>
-        // Verifica o tipo de usuário para definir o redirecionamento do botão Voltar
-        document.getElementById('voltarBtn').addEventListener('click', function () {
-            // Aqui você precisará verificar no seu sistema se o usuário é produtor ou comprador
-            // Esta é uma implementação simulada - você deve adaptar para sua lógica real
-            const isProdutor = true; // Substitua por sua verificação real
+                <div class="form-group">
+                    <label for="estado">Estado:</label>
+                    <input type="text" id="estado" name="estado" value="<%= usuario.estado || '' %>" readonly>
+                    <button class="btn edit" type="button" onclick="toggleEdit('estado')">Editar</button>
+                </div>
 
-            if (isProdutor) {
-                window.location.href = '/produtorHome';
-            } else {
-                window.location.href = '/compradorHome';
-            }
-        });
+                <div class="form-group">
+                    <label for="numero">Número:</label>
+                    <input type="text" id="numero" name="numero" value="<%= usuario.numero || '' %>" readonly>
+                    <button class="btn edit" type="button" onclick="toggleEdit('numero')">Editar</button>
+                </div>
+                <% } %>
 
-        // Função para alternar entre modo leitura e edição
-        function toggleEdit(fieldId) {
-            const field = document.getElementById(fieldId);
-            field.readOnly = !field.readOnly;
-            field.style.backgroundColor = field.readOnly ? '#FFF' : '#f8f9fa';
-        }
 
-        // Função para salvar alterações (simulada)
-        function salvarAlteracoes() {
-            alert('Alterações salvas com sucesso!');
-            // Aqui você adicionaria a lógica para enviar as alterações para o servidor
-        }
+                    <script>
+                        // Função para alternar entre modo leitura e edição
+                        function toggleEdit(fieldId) {
+                            const field = document.getElementById(fieldId);
+                            field.readOnly = !field.readOnly;
+                            field.style.backgroundColor = field.readOnly ? '#FFF' : '#f8f9fa';
+                        }
 
-        // Manipulador para upload de imagem
-        document.getElementById('fileInput').addEventListener('change', function (e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (event) {
-                    document.getElementById('profileImage').src = event.target.result;
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-    </script>
+                        // Manipulador para upload de imagem
+                        document.getElementById('fileInput').addEventListener('change', function (e) {
+                            const file = e.target.files[0];
+                            if (file) {
+                                const reader = new FileReader();
+                                reader.onload = function (event) {
+                                    document.getElementById('profileImage').src = event.target.result;
+                                }
+                                reader.readAsDataURL(file);
+                            }
+                        });
+                    </script>
+
 </body>
 
 </html>

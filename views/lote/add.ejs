@@ -1,14 +1,35 @@
-<%-include('../cabecalho.ejs')%>
+<%- include('../cabecalho.ejs') %>
+
+  <style>
+    body {
+      background: url('/images/gado.jpg') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #fff;
+    }
+
+    table,
+    th,
+    td {
+      color: #fff;
+    }
+  </style>
 
   <h1 style="text-align: center; color: #FFF;">ADICIONAR LOTE</h1>
   <form action="/lotes" method="POST" class="form-lote">
     <!-- Campo Raça (mantido) -->
     <div class="form-group">
       <label for="raca">Raça:</label>
-      <input type="text" id="raca" name="raca" required>
+      <select id="raca" name="raca" required>
+        <option value="">Selecione</option>
+        <option value="Angus">Angus</option>
+        <option value="Nelore">Nelore</option>
+        <option value="Cruzado">Cruzado</option>
+      </select>
     </div>
 
-    <!-- Campo Sexo (agora como select) -->
+    <!-- Campo Sexo -->
     <div class="form-group">
       <label for="sexo">Sexo:</label>
       <select id="sexo" name="sexo" required>
@@ -17,37 +38,43 @@
         <option value="Fêmea">Fêmea</option>
       </select>
     </div>
+
+    <!-- Campo peso-->
     <div class="form-group">
       <label for="peso">Peso médio em kg:</label>
       <input type="number" id="peso" name="peso" required>
     </div>
+
+    <!-- Campo dentição-->
     <div class="form-group">
-      <label for="denticao">Dentição:</label>
+      <label for="denticao">Dentição permanente:</label>
       <select id="denticao" name="denticao" required>
         <option value="">Selecione</option>
-        <option value="2">2</option>
-        <option value="4">4</option>
-        <option value="6">6</option>
-        <option value="8">8</option>
+        <option value="0">0 (0 a 18 meses)</option>
+        <option value="2">2 (19 a 24 meses)</option>
+        <option value="4">4 (25 a 30 meses)</option>
+        <option value="6">6 (31 a 42 meses)</option>
+        <option value="8">8 (Mais de 42 meses)</option>
       </select>
     </div>
-        <!-- Campo Medicamentos como Checkboxes -->
+    <!-- Campo Medicamentos como Checkboxes -->
     <div class="form-group">
       <label>Medicamentos:</label>
-      <div class="checkbox-group">
-        <label class="checkbox-option">
-          <input type="checkbox" name="medicamentos" value="Ivermectina">
-          <span>Ivermectina</span>
+      <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+        <label>
+          <input type="checkbox" name="medicamentos" value="Ivermectina"> Ivermectina
         </label>
-        
-        <label class="checkbox-option">
-          <input type="checkbox" name="medicamentos" value="Vitaminado">
-          <span>Complexo vitamínico</span>
+        <label>
+          <input type="checkbox" name="medicamentos" value="Vitaminado"> Complexo vitamínico
         </label>
-        
-        <label class="checkbox-option">
-          <input type="checkbox" name="medicamentos" value="Antibiótico">
-          <span>Antibiótico</span>
+        <label>
+          <input type="checkbox" name="medicamentos" value="Antibiótico"> Antibiótico
+        </label>
+        <label>
+          <input type="checkbox" name="medicamentos" value="Vermífugo"> Vermífugo
+        </label>
+        <label>
+          <input type="checkbox" name="medicamentos" value="Outro"> Outro
         </label>
       </div>
     </div>
@@ -56,6 +83,6 @@
       <a href="/lstlote" class="btn cancelar">Cancelar</a>
     </div>
   </form>
-</div>
+  </div>
 
-<%-include('../rodape.ejs')%>
+  <%-include('../rodape.ejs')%>

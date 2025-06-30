@@ -59,18 +59,23 @@ export function abreaddlote(req,res){
     res.render('lote/add')
 }
 
-export function addlote(req,res){
-    let lote = new Lote({
-        id: req.body.id,
-        idade: req.body.idade,
-        sexo: req.body.sexo,
-        raca: req.body.raca,
-        medicamentos: req.body.medicamentos,
-        peso: req.body.peso,
-    })
-    lote.save();
-    res.redirect('/addlote')
+export function addlote(req, res) {
+  const medicamentos = Array.isArray(req.body.medicamentos)
+    ? req.body.medicamentos
+    : [req.body.medicamentos];
+
+  let lote = new Lote({
+    raca: req.body.raca,
+    sexo: req.body.sexo,
+    peso: req.body.peso,
+    denticao: req.body.denticao,
+    medicamentos: medicamentos
+  });
+
+  lote.save();
+  res.redirect('/lstlote');
 }
+
 
 export const listarlote = async (req, res) => {
   try {
@@ -117,7 +122,7 @@ export const abreregistro = (req, res) => {
 
 export const registro = async (req, res) => {
   try {
-    const { nome, email, senha, tipo } = req.body;
+    const { nome, email, senha, tipo, cidade, estado, numero } = req.body;
     const tipoValido = ['Comprador', 'Produtor', 'Admin'];
     if (!tipoValido.includes(tipo)) {
       return res.status(400).send('Tipo de usuário inválido.');
@@ -131,7 +136,16 @@ export const registro = async (req, res) => {
     const senhaHash = await bcrypt.hash(senha, 10);
     const foto = req.file ? req.file.filename : null;
 
-    const novoUsuario = new Usuario({ nome, email, senha: senhaHash, foto, tipo });
+    const novoUsuario = new Usuario({
+      nome,
+      email,
+      senha: senhaHash,
+      foto,
+      tipo,
+      cidade: tipo === 'Produtor' ? cidade : '',
+      estado: tipo === 'Produtor' ? estado : '',
+      numero: tipo === 'Produtor' ? numero : ''
+    });
     await novoUsuario.save();
     res.redirect('/login');
   } catch (err) {
@@ -218,7 +232,7 @@ export async function perfilUsuario(req, res) {
       return res.status(404).send('Usuário não encontrado.');
     }
 
-    res.render('perfil', { usuario });
+    res.render('perfil', { usuario, tipoUsuario: req.session?.usuario?.tipo || '' });
   } catch (err) {
     console.error(err);
     res.status(500).send('Erro ao carregar perfil.');
@@ -257,4 +271,13 @@ export async function atualizarPerfil(req, res) {
     console.error(err);
     res.status(500).send('Erro ao atualizar perfil.');
   }
+}
+
+// PÁGINAS ESTÁTICAS: SOBRE E AJUDA
+export function abreSobre(req, res) {
+  res.render('sobre');
+}
+
+export function abreAjuda(req, res) {
+  res.render('ajuda');
 }

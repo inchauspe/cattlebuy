@@ -37,6 +37,8 @@ import {
             dashboard,
             perfilUsuario,
             atualizarPerfil,
+            abreAjuda,
+            abreSobre,
         } from '../controllers/controllers.js';
 
 router.get('/addusuario', abreaddusuario)
@@ -49,7 +51,7 @@ router.get("/edtusuario",abreedtusuario)
 router.post("/edtusuario",edtusuario)
 
 router.get('/addlote', abreaddlote)
-router.post('/addlote', addlote)
+router.post('/lotes', addlote);
 
 router.get("/delusuario/:id",delusuario)
 
@@ -82,5 +84,8 @@ router.post('/dashboard', dashboard)
 
 router.get('/perfil', perfilUsuario);
 router.post('/perfil', upload.single('foto'), atualizarPerfil);
+
+router.get('/sobre', abreSobre);
+router.get('/ajuda', abreAjuda);
 
 export default router
