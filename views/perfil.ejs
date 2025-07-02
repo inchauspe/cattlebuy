@@ -2,207 +2,231 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil | Cattlebuy</title>
-    <style>
-        body.fundo {
-            background: url('/images/gado.jpg') no-repeat center center fixed;
-            background-size: cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil | Cattlebuy</title>
+  <style>
+    body.fundo {
+      background: url('/images/gado.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
 
-        .container-perfil {
-            background-color: #003366;
-            padding: 30px;
-            border-radius: 8px;
-            border: 2px solid #F0F0F0;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        }
+    .container-perfil {
+      background-color: #003366;
+      padding: 30px;
+      border-radius: 8px;
+      border: 2px solid #F0F0F0;
+      overflow: hidden;
+      width: 25%;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
 
-        .container-perfil h1 {
-            color: #FFF;
-            text-align: center;
-            margin-bottom: 25px;
-        }
+    .container-comprador {
+      max-width: 500px;
+    }
 
-        .profile-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+    .container-produtor {
+      max-width: 900px;
+      max-height: 80vh;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
 
-        .profile-pic {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 3px solid #F0F0F0;
-            object-fit: cover;
-            margin-bottom: 15px;
-        }
+    .grid-produtor {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
 
-        .edit-icon {
-            color: #FFF;
-            background-color: #001f3f;
-            border: 2px solid #F0F0F0;
-            border-radius: 50%;
-            padding: 8px;
-            cursor: pointer;
-            margin-top: -20px;
-            margin-left: 120px;
-        }
+    .grid-produtor .form-group {
+      flex: 1 1 calc(50% - 20px);
+      min-width: 200px;
+    }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+    .container-perfil h1 {
+      color: #FFF;
+      text-align: center;
+      margin-bottom: 25px;
+    }
 
-        .form-group label {
-            display: block;
-            color: #FFF;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
+    .profile-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+    }
 
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-            background-color: #FFF;
-            box-sizing: border-box;
-        }
+    .profile-pic {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 3px solid #F0F0F0;
+      object-fit: cover;
+      margin-bottom: 15px;
+    }
 
-        .btn {
-            display: inline-block;
-            padding: 10px 15px;
-            border: 2px solid #F0F0F0;
-            border-radius: 8px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            font-size: 14px;
-            margin-right: 10px;
-        }
+    .edit-icon {
+      color: #FFF;
+      background-color: #001f3f;
+      border: 2px solid #F0F0F0;
+      border-radius: 50%;
+      padding: 8px;
+      cursor: pointer;
+      margin-top: -20px;
+      margin-left: 120px;
+    }
 
-        .btn.edit {
-            background-color: #001f3f;
-            color: #FFF;
-        }
+    .form-group {
+      margin-bottom: 20px;
+    }
 
-        .btn.cancelar {
-            background-color: #6c757d;
-            color: #FFF;
-        }
+    .form-group label {
+      display: block;
+      color: #FFF;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
 
-        .actions {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
-        }
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      background-color: #FFF;
+      box-sizing: border-box;
+    }
 
-        .hidden {
-            display: none;
-        }
-    </style>
+    .btn {
+      display: inline-block;
+      padding: 10px 15px;
+      border: 2px solid #F0F0F0;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      font-size: 14px;
+      margin-right: 10px;
+    }
+
+    .btn.edit {
+      background-color: #001f3f;
+      color: #FFF;
+    }
+
+    .btn.cancelar {
+      background-color: #6c757d;
+      color: #FFF;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
 
 <body class="fundo">
-    <div class="container-perfil">
-        <h1>MEU PERFIL</h1>
+  <div class="container-perfil <%= usuario.tipo === 'Produtor' ? 'container-produtor' : 'container-comprador' %>">
+    <h1>MEU PERFIL</h1>
 
-        <form action="/perfil" method="POST" enctype="multipart/form-data">
-            <div class="profile-section">
-                <img src="/uploads/<%= usuario.foto || 'perfil.png' %>" alt="Foto de Perfil" class="profile-pic"
-                    id="profileImage">
-                <input type="file" name="foto" id="fileInput" class="hidden" accept="image/*">
-                <div class="edit-icon" onclick="document.getElementById('fileInput').click()">✏️</div>
-            </div>
+    <form action="/perfil" method="POST" enctype="multipart/form-data">
+      <div class="profile-section">
+        <img src="/uploads/<%= usuario.foto || 'perfil.png' %>" alt="Foto de Perfil" class="profile-pic"
+          id="profileImage">
+        <input type="file" name="foto" id="fileInput" class="hidden" accept="image/*">
+        <div class="edit-icon" onclick="document.getElementById('fileInput').click()">✏️</div>
+      </div>
 
-            <div class="form-group">
-                <label for="nome">Nome:</label>
-                <div style="display: flex;">
-                    <input type="text" id="nome" name="nome" value="<%= usuario.nome %>" readonly>
-                    <button class="btn edit" type="button" onclick="toggleEdit('nome')">Editar</button>
-                </div>
-            </div>
+      <div class="form-group">
+        <label for="nome">Nome:</label>
+        <div style="display: flex;">
+          <input type="text" id="nome" name="nome" value="<%= usuario.nome %>" readonly>
+          <button class="btn edit" type="button" onclick="toggleEdit('nome')">Editar</button>
+        </div>
+      </div>
 
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <div style="display: flex;">
-                    <input type="email" id="email" name="email" value="<%= usuario.email %>" readonly>
-                    <button class="btn edit" type="button" onclick="toggleEdit('email')">Editar</button>
-                </div>
-            </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <div style="display: flex;">
+          <input type="email" id="email" name="email" value="<%= usuario.email %>" readonly>
+          <button class="btn edit" type="button" onclick="toggleEdit('email')">Editar</button>
+        </div>
+      </div>
 
-            <div class="form-group">
-                <label for="senha">Senha:</label>
-                <div style="display: flex;">
-                    <input type="password" id="senha" name="senha" placeholder="Deixe em branco para não alterar"
-                        readonly>
-                    <button class="btn edit" type="button" onclick="toggleEdit('senha')">Editar</button>
-                </div>
-            </div>
+      <div class="form-group">
+        <label for="senha">Senha:</label>
+        <div style="display: flex;">
+          <input type="password" id="senha" name="senha" placeholder="Deixe em branco para não alterar" readonly>
+          <button class="btn edit" type="button" onclick="toggleEdit('senha')">Editar</button>
+        </div>
+      </div>
 
-            <div class="actions">
-                <% if (tipoUsuario==='Produtor' ) { %>
-                    <a href="/produtorHome" class="btn cancelar">Voltar</a>
-                    <% } else if (tipoUsuario==='Comprador' ) { %>
-                        <a href="/compradorHome" class="btn cancelar">Voltar</a>
-                        <% } else { %>
-                            <a href="/" class="btn cancelar">Voltar</a> <!-- fallback -->
-                            <% } %>
-                                <button class="btn edit" type="submit">Salvar Alterações</button>
-            </div>
-            <% if (usuario.tipo==='Produtor' ) { %>
-                <div class="form-group">
-                    <label for="cidade">Cidade:</label>
-                    <input type="text" id="cidade" name="cidade" value="<%= usuario.cidade || '' %>" readonly>
-                    <button class="btn edit" type="button" onclick="toggleEdit('cidade')">Editar</button>
-                </div>
+      <% if (usuario.tipo === 'Produtor') { %>
+        <div class="grid-produtor">
+          <div class="form-group">
+            <label for="cidade">Cidade:</label>
+            <input type="text" id="cidade" name="cidade" value="<%= usuario.cidade || '' %>" readonly>
+            <button class="btn edit" type="button" onclick="toggleEdit('cidade')">Editar</button>
+          </div>
 
-                <div class="form-group">
-                    <label for="estado">Estado:</label>
-                    <input type="text" id="estado" name="estado" value="<%= usuario.estado || '' %>" readonly>
-                    <button class="btn edit" type="button" onclick="toggleEdit('estado')">Editar</button>
-                </div>
+          <div class="form-group">
+            <label for="estado">Estado:</label>
+            <input type="text" id="estado" name="estado" value="<%= usuario.estado || '' %>" readonly>
+            <button class="btn edit" type="button" onclick="toggleEdit('estado')">Editar</button>
+          </div>
 
-                <div class="form-group">
-                    <label for="numero">Número:</label>
-                    <input type="text" id="numero" name="numero" value="<%= usuario.numero || '' %>" readonly>
-                    <button class="btn edit" type="button" onclick="toggleEdit('numero')">Editar</button>
-                </div>
-                <% } %>
+          <div class="form-group">
+            <label for="numero">Número:</label>
+            <input type="text" id="numero" name="numero" value="<%= usuario.numero || '' %>" readonly>
+            <button class="btn edit" type="button" onclick="toggleEdit('numero')">Editar</button>
+          </div>
+        </div>
+      <% } %>
 
+      <div class="actions">
+        <% if (tipoUsuario === 'Produtor') { %>
+          <a href="/produtorHome" class="btn cancelar">Voltar</a>
+        <% } else if (tipoUsuario === 'Comprador') { %>
+          <a href="/compradorHome" class="btn cancelar">Voltar</a>
+        <% } else { %>
+          <a href="/" class="btn cancelar">Voltar</a>
+        <% } %>
+        <button class="btn edit" type="submit">Salvar Alterações</button>
+      </div>
+    </form>
+  </div>
 
-                    <script>
-                        // Função para alternar entre modo leitura e edição
-                        function toggleEdit(fieldId) {
-                            const field = document.getElementById(fieldId);
-                            field.readOnly = !field.readOnly;
-                            field.style.backgroundColor = field.readOnly ? '#FFF' : '#f8f9fa';
-                        }
+  <script>
+    function toggleEdit(fieldId) {
+      const field = document.getElementById(fieldId);
+      field.readOnly = !field.readOnly;
+      field.style.backgroundColor = field.readOnly ? '#FFF' : '#f8f9fa';
+    }
 
-                        // Manipulador para upload de imagem
-                        document.getElementById('fileInput').addEventListener('change', function (e) {
-                            const file = e.target.files[0];
-                            if (file) {
-                                const reader = new FileReader();
-                                reader.onload = function (event) {
-                                    document.getElementById('profileImage').src = event.target.result;
-                                }
-                                reader.readAsDataURL(file);
-                            }
-                        });
-                    </script>
-
+    document.getElementById('fileInput').addEventListener('change', function (e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          document.getElementById('profileImage').src = event.target.result;
+        }
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
 </body>
 
 </html>

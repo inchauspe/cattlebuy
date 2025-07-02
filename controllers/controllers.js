@@ -2,14 +2,14 @@ import Usuario from '../models/Usuario.js';
 import Lote from '../models/Lote.js';
 import bcrypt from 'bcrypt'; 
 
-//FUNÇÃO INICIAL
+// FUNÇÃO INICIAL
 export function inicial(req,res){
-    res.render('index.ejs')
+    res.render('index.ejs');
 }
 
-//FUNÇÕES DO USUARIO
+// FUNÇÕES DO USUÁRIO
 export function abreaddusuario(req,res){
-    res.render('usuario/add')
+    res.render('usuario/add');
 }
 
 export function addusuario(req,res){
@@ -18,9 +18,9 @@ export function addusuario(req,res){
         email: req.body.email,
         senha: req.body.senha,
         foto: req.body.foto
-    })
+    });
     usuario.save();
-    res.redirect('/addusuario')
+    res.redirect('/addusuario');
 }
 
 export async function listarusuarios(req, res) {
@@ -29,14 +29,14 @@ export async function listarusuarios(req, res) {
 }
 
 export async function filtrarusuarios(req,res){
-    const filtro = req.body.filtro
-    const usuarios = await Usuario.find({nome: new RegExp(filtro,'g')})
-    res.render('listarusuarios.ejs',{"Usuarios":usuarios})
+    const filtro = req.body.filtro;
+    const usuarios = await Usuario.find({nome: new RegExp(filtro,'g')});
+    res.render('listarusuarios.ejs',{"Usuarios":usuarios});
 }
 
 export async function delusuario(req,res){
-    await Usuario.findByIdAndDelete(req.params.id)
-    res.redirect('/lstusuarios')
+    await Usuario.findByIdAndDelete(req.params.id);
+    res.redirect('/lstusuarios');
 }
 
 export async function abreedtusuario(req, res) {
@@ -45,18 +45,18 @@ export async function abreedtusuario(req, res) {
 }
 
 export async function edtusuario(req,res){
-    const usuario = await Usuario.findById(req.params.id)
-    usuario.nome = req.body.nome
-    usuario.email = req.body.email
-    usuario.senha = req.body.senha
-    usuario.foto = req.body.foto
-    await usuario.save()
-    res.redirect('/lstusuario')
+    const usuario = await Usuario.findById(req.params.id);
+    usuario.nome = req.body.nome;
+    usuario.email = req.body.email;
+    usuario.senha = req.body.senha;
+    usuario.foto = req.body.foto;
+    await usuario.save();
+    res.redirect('/lstusuario');
 }
 
-//FUNÇÕES DO LOTE
+// FUNÇÕES DO LOTE
 export function abreaddlote(req,res){
-    res.render('lote/add')
+    res.render('lote/add');
 }
 
 export function addlote(req, res) {
@@ -69,53 +69,56 @@ export function addlote(req, res) {
     sexo: req.body.sexo,
     peso: req.body.peso,
     denticao: req.body.denticao,
-    medicamentos: medicamentos
+    medicamentos: medicamentos,
+    usuario: req.session.usuario._id // ID do produtor logado
   });
 
-  lote.save();
-  res.redirect('/lstlote');
+  lote.save()
+    .then(() => res.redirect('/lstlote'))
+    .catch(err => {
+      console.error("Erro ao salvar lote:", err);
+      res.status(500).send("Erro ao salvar lote.");
+    });
 }
-
 
 export const listarlote = async (req, res) => {
   try {
-    const lotes = await Lote.find(); // busca os lotes no banco
-    res.render('lote/lst', { lotes }); // envia para a view
+    const lotes = await Lote.find();
+    res.render('lote/lst', { lotes });
   } catch (error) {
     res.status(500).send('Erro ao listar os lotes.');
   }
 };
 
-
 export async function filtrarlote(req,res){
-    const filtro = req.body.filtro
-    const lote = await Lote.find({sexo: new RegExp(filtro,'g')})
-    res.render('listarlote.ejs',{"Lote":lote})
+    const filtro = req.body.filtro;
+    const lote = await Lote.find({sexo: new RegExp(filtro,'g')});
+    res.render('listarlote.ejs',{"Lote":lote});
 }
 
 export async function dellote(req,res){
-    await Lote.findByIdAndDelete(req.params.id)
-    res.redirect('/lstlote')
+    await Lote.findByIdAndDelete(req.params.id);
+    res.redirect('/lstlote');
 }
 
 export async function abreedtlote(req,res){
-    const lote = await Lote.findById(req.params.id)
+    const lote = await Lote.findById(req.params.id);
     res.render('lote/edtlote', { Lote: lote });
 }
 
 export async function edtlote(req,res){
-    const lote = await Lote.findById(req.params.id)
-    lote.id = req.body.id
-    lote.idade = req.body.idade
-    lote.sexo = req.body.sexo
-    lote.raca = req.body.raca
-    lote.medicamentos = req.body.medicamentos
-    lote.peso = req.body.peso
-    await lote.save()
-    res.redirect('/lstlote')
+    const lote = await Lote.findById(req.params.id);
+    lote.id = req.body.id;
+    lote.idade = req.body.idade;
+    lote.sexo = req.body.sexo;
+    lote.raca = req.body.raca;
+    lote.medicamentos = req.body.medicamentos;
+    lote.peso = req.body.peso;
+    await lote.save();
+    res.redirect('/lstlote');
 }
 
-//FUNÇÕES DE LOGIN E REGISTRO
+// FUNÇÕES DE LOGIN E REGISTRO
 export const abreregistro = (req, res) => {
   res.render('registro');
 };
@@ -180,7 +183,7 @@ export const login = async (req, res) => {
     } else if (usuario.tipo === 'Produtor') {
       res.redirect('/produtorHome');
     } else {
-      res.redirect('/login'); // fallback, se o tipo for inválido
+      res.redirect('/login');
     }
 
   } catch (err) {
@@ -193,46 +196,66 @@ export const logout = (req, res) => {
   res.redirect('/login');
 };
 
-//TELA DO PRODUTOR
-export function abreprodutor(req,res){
-  res.render('produtorHome')
+// TELA DO PRODUTOR
+export async function abreprodutor(req, res) {
+  try {
+    const idProdutor = req.session.usuario.id;
+    const lotesProdutor = await Lote.find({ usuario: idProdutor }).populate('usuario');
+    res.render('produtorHome', {
+      lotesProdutor,
+      usuario: req.session.usuario
+    });
+  } catch (err) {
+    console.error("Erro ao buscar lotes do produtor:", err);
+    res.status(500).send("Erro interno ao carregar a página do produtor.");
+  }
 }
 
 export function produtorHome(req,res){
-  res.redirect('/addlote')
+  res.redirect('/produtorHome');
 }
 
-//TELA DO COMPRADOR
-export function abrecomprador(req,res){
-  res.render('compradorHome')
+// TELA DO COMPRADOR
+export async function abrecomprador(req, res) {
+  try {
+    const lotes = await Lote.find().populate('usuario', 'nome cidade estado numero');
+    res.render('compradorHome', { lotes });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Erro interno do servidor');
+  }
 }
 
-export function compradorHome(req,res){
-  res.redirect('/addlote')
+export async function compradorHome(req, res) {
+  try {
+    const lotes = await Lote.find().populate('usuario', 'nome cidade estado numero');
+    res.render('compradorHome', { lotes });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Erro ao carregar lotes.');
+  }
 }
 
-//TELA DO ADMIN
+// TELA DO ADMIN
 export function painelAdmin(req, res) {
   res.render('dashboard');
 }
 
 export function dashboard(req,res){
-  res.redirect('/addlote')
+  res.redirect('/addlote');
 }
 
-//PERFIL
+// PERFIL
 export async function perfilUsuario(req, res) {
   try {
     if (!req.session.usuario) {
       return res.redirect('/login');
     }
-
     const usuario = await Usuario.findById(req.session.usuario.id);
     if (!usuario) {
       return res.status(404).send('Usuário não encontrado.');
     }
-
-    res.render('perfil', { usuario, tipoUsuario: req.session?.usuario?.tipo || '' });
+    res.render('perfil', { usuario, tipoUsuario: req.session.usuario.tipo });
   } catch (err) {
     console.error(err);
     res.status(500).send('Erro ao carregar perfil.');
@@ -244,23 +267,19 @@ export async function atualizarPerfil(req, res) {
     if (!req.session.usuario) {
       return res.redirect('/login');
     }
-
     const usuario = await Usuario.findById(req.session.usuario.id);
     if (!usuario) {
       return res.status(404).send('Usuário não encontrado.');
     }
 
-    // Atualiza campos
     usuario.nome = req.body.nome || usuario.nome;
     usuario.email = req.body.email || usuario.email;
 
-    // Atualiza senha, se enviada
     if (req.body.senha && req.body.senha.trim() !== '') {
       const senhaHash = await bcrypt.hash(req.body.senha, 10);
       usuario.senha = senhaHash;
     }
 
-    // Atualiza foto, se enviada
     if (req.file) {
       usuario.foto = req.file.filename;
     }

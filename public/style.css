@@ -43,6 +43,15 @@ body.fundo {
   padding: 20px;
 }
 
+.lote-card {
+  background-color: #003366;
+  color: white;
+  border: 2px solid #f0f0f0;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
 .container-login {
   display: flex;
   flex-direction: column;

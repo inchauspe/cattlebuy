@@ -1,11 +1,13 @@
 import conexao from '../config/conexao.js'
+import mongoose from 'mongoose';
 
-const Lote = conexao.Schema({
-    raca: String,
-    sexo: String,
-    peso: Number,
-    denticao: String,
-    medicamentos: [String],
-  });
+const LoteSchema = new mongoose.Schema({
+  raca: String,
+  sexo: String,
+  peso: Number,
+  denticao: String,
+  medicamentos: [String],
+  usuario: { type: mongoose.Schema.Types.ObjectId, ref: 'Usuario' } 
+});
 
-export default conexao.model('Lote',Lote)
+export default mongoose.model('Lote', LoteSchema);
