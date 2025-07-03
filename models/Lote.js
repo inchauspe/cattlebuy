@@ -6,8 +6,14 @@ const LoteSchema = new mongoose.Schema({
   sexo: String,
   peso: Number,
   denticao: String,
+  preco: Number,       // se usar preço
+  quantidade: Number,  // se usar quantidade
   medicamentos: [String],
-  usuario: { type: mongoose.Schema.Types.ObjectId, ref: 'Usuario' } 
+  usuario: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'Usuario',
+    required: true
+  }
 });
 
 export default mongoose.model('Lote', LoteSchema);

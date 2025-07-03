@@ -43,12 +43,10 @@
             <div
               style="background-color: rgba(0, 51, 102, 0.7); padding: 15px; border-radius: 5px; margin-bottom: 10px; border: 1px solid #F0F0F0;">
               <h3 style="color: #FFF; margin-top: 0;">Lote #<%= lote._id %></h3>
-              <p style="color: #FFF;"><strong>Quantidade:</strong> <%= lote.quantidade || 'N/A' %> cabeças</p>
               <p style="color: #FFF;"><strong>Raça:</strong> <%= lote.raca || 'N/A' %></p>
-              <p style="color: #FFF;"><strong>Preço:</strong> R$ <%= lote.preco ? lote.preco.toFixed(2) : 'N/A' %> por cabeça</p>
               <p style="color: #FFF;"><strong>Sexo:</strong> <%= lote.sexo || 'N/A' %></p>
               <p style="color: #FFF;"><strong>Peso médio:</strong> <%= lote.peso || 'N/A' %> kg</p>
-              <p style="color: #FFF;"><strong>Dentição:</strong> <%= lote.denticão || 'N/A' %></p>
+              <p style="color: #FFF;"><strong>Dentição:</strong> <%= lote.denticao || 'N/A' %></p>
               <div style="margin-top: 10px;">
                 <a href="/editlote/<%= lote._id %>" class="btn edit" style="margin-right: 5px;">Editar</a>
                 <a href="/dellote/<%= lote._id %>" class="btn delete" onclick="return confirm('Tem certeza que deseja excluir este lote?')">Remover</a>

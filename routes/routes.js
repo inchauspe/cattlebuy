@@ -1,4 +1,5 @@
 import express from 'express';
+import { protegerLogin, protegerPorTipo } from '../middlewares/authMiddleware.js';
 const router = express.Router();
 import multer from 'multer';
 const storage = multer.diskStorage({
@@ -50,8 +51,8 @@ router.post('/lstusuarios',filtrarusuarios)
 router.get("/edtusuario",abreedtusuario)
 router.post("/edtusuario",edtusuario)
 
-router.get('/addlote', abreaddlote)
-router.post('/lotes', addlote);
+router.get('/addlote', protegerLogin, protegerPorTipo('Produtor'), abreaddlote);
+router.post('/addlote', protegerLogin, protegerPorTipo('Produtor'), addlote);
 
 router.get("/delusuario/:id",delusuario)
 
@@ -73,17 +74,17 @@ router.post('/registro', upload.single('foto'), registro);
 
 router.get('/logout', logout);
 
-router.get('/produtorHome', abreprodutor);
+router.get('/produtorHome', protegerLogin, protegerPorTipo('Produtor'), abreprodutor);
 router.post ('/produtorHome', produtorHome);
 
-router.get('/compradorHome', abrecomprador);
+router.get('/compradorHome', protegerLogin, protegerPorTipo('Comprador'), abrecomprador);
 router.post ('/compradorHome', compradorHome);
 
-router.get('/dashboard', painelAdmin);
+router.get('/dashboard', protegerLogin, protegerPorTipo('Admin'), painelAdmin);
 router.post('/dashboard', dashboard)
 
-router.get('/perfil', perfilUsuario);
-router.post('/perfil', upload.single('foto'), atualizarPerfil);
+router.get('/perfil', protegerLogin, perfilUsuario);
+router.post('/perfil', protegerLogin, upload.single('foto'), atualizarPerfil);
 
 router.get('/sobre', abreSobre);
 router.get('/ajuda', abreAjuda);
