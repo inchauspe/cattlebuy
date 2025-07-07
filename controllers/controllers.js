@@ -20,7 +20,7 @@ export function addusuario(req,res){
         foto: req.body.foto
     });
     usuario.save();
-    res.redirect('/addusuario');
+    res.redirect('/lstusuarios');
 }
 
 export async function listarusuarios(req, res) {
@@ -59,26 +59,27 @@ export function abreaddlote(req,res){
     res.render('lote/add');
 }
 
-export function addlote(req, res) {
-  const medicamentos = Array.isArray(req.body.medicamentos)
-    ? req.body.medicamentos
-    : [req.body.medicamentos];
+export async function addlote(req, res) {
+  try {
+    const medicamentos = Array.isArray(req.body.medicamentos)
+      ? req.body.medicamentos
+      : [req.body.medicamentos];
 
-  let lote = new Lote({
-    raca: req.body.raca,
-    sexo: req.body.sexo,
-    peso: req.body.peso,
-    denticao: req.body.denticao,
-    medicamentos: medicamentos,
-    usuario: req.session.usuario._id // ID do produtor logado
-  });
-
-  lote.save()
-    .then(() => res.redirect('/lstlote'))
-    .catch(err => {
-      console.error("Erro ao salvar lote:", err);
-      res.status(500).send("Erro ao salvar lote.");
+    let lote = new Lote({
+      raca: req.body.raca,
+      sexo: req.body.sexo,
+      peso: req.body.peso,
+      denticao: req.body.denticao,
+      medicamentos: medicamentos,
+      usuario: req.session.usuario.id //
     });
+
+    await lote.save();
+    res.redirect('/produtorHome');
+  } catch (err) {
+    console.error("Erro ao salvar lote:", err);
+    res.status(500).send("Erro ao salvar lote.");
+  }
 }
 
 export const listarlote = async (req, res) => {
@@ -211,10 +212,6 @@ export async function abreprodutor(req, res) {
   }
 }
 
-export function produtorHome(req,res){
-  res.redirect('/produtorHome');
-}
-
 // TELA DO COMPRADOR
 export async function abrecomprador(req, res) {
   try {
@@ -223,16 +220,6 @@ export async function abrecomprador(req, res) {
   } catch (error) {
     console.error(error);
     res.status(500).send('Erro interno do servidor');
-  }
-}
-
-export async function compradorHome(req, res) {
-  try {
-    const lotes = await Lote.find().populate('usuario', 'nome cidade estado numero');
-    res.render('compradorHome', { lotes });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Erro ao carregar lotes.');
   }
 }
 

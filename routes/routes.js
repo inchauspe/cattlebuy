@@ -30,10 +30,8 @@ import {
             abreregistro,
             registro,
             logout,
-            produtorHome, 
             abreprodutor,
             abrecomprador,
-            compradorHome,
             painelAdmin,
             dashboard,
             perfilUsuario,
@@ -75,10 +73,8 @@ router.post('/registro', upload.single('foto'), registro);
 router.get('/logout', logout);
 
 router.get('/produtorHome', protegerLogin, protegerPorTipo('Produtor'), abreprodutor);
-router.post ('/produtorHome', produtorHome);
 
 router.get('/compradorHome', protegerLogin, protegerPorTipo('Comprador'), abrecomprador);
-router.post ('/compradorHome', compradorHome);
 
 router.get('/dashboard', protegerLogin, protegerPorTipo('Admin'), painelAdmin);
 router.post('/dashboard', dashboard)
